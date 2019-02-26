@@ -1,0 +1,13 @@
+api_sika:
+    resource: "@ApiSikaBundle/Controller/"
+    type:     annotation
+    prefix:   /api
+
+dashboard:
+    resource: "@DashboardBundle/Controller/"
+    type:     annotation
+    prefix:   /dashboard
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Scans list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Productid</th>
+                <th>Score</th>
+                <th>Createdtime</th>
+                <th>Qrvalue</th>
+                <th>Clientid</th>
+                <th>Remainingscore</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for scan in scans %}
+            <tr>
+                <td><a href="{{ path('scan_show', { 'id': scan.id }) }}">{{ scan.id }}</a></td>
+                <td>{{ scan.productId }}</td>
+                <td>{{ scan.score }}</td>
+                <td>{% if scan.createdTime %}{{ scan.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ scan.qrValue }}</td>
+                <td>{{ scan.clientId }}</td>
+                <td>{{ scan.remainingScore }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('scan_show', { 'id': scan.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('scan_edit', { 'id': scan.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('scan_new') }}">Create a new scan</a>
+        </li>
+    </ul>
+{% endblock %}

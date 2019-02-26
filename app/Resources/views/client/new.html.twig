@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+{% block tiles %}{% endblock %}
+
+{% block body %}
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Clients <small>Création </small></h3>
+        </div>
+
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Client <small>création </small></h2>
+
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="close-link">
+                                <i class="fa fa-close"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="clearfix"></div>                    
+                </div>        
+                <div class="x_content">
+                    {{ form_start(form, {'method': 'POST',  'attr' : { 'class': 'form-horizontal form-label-left' } } ) }}
+                        <div class="form-group">
+                            {{ form_label(form.userId ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.userId) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.userId, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div > 
+                        <div class="form-group">
+                            {{ form_label(form.displayName ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.displayName) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.displayName, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div > 
+                        <div class="form-group">
+                            {{ form_label(form.contactadmin ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.contactadmin) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.contactadmin, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >
+                        <div class="form-group">
+                            {{ form_label(form.compteclient ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.compteclient) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.compteclient, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div > 
+                        <div class="form-group">
+                            {{ form_label(form.scans ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.scans) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.scans, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >   
+                        <div class="form-group">
+                            {{ form_label(form.picture ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.picture) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.picture, { 'attr': {'class': 'file '}} ) }}
+                            </div>        
+                        </div > 
+                        <div class="form-group">
+                            {{ form_label(form.tel ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.tel) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.tel, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >   
+                        <div class="form-group">
+                            {{ form_label(form.email ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.email) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.email, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >   
+
+                        <input type="submit" value="Create" />
+                    {{ form_end(form) }}
+
+                    <ul>
+                        <li>
+                            <a href="{{ path('client_index') }}">Back to the list</a>
+                        </li>
+                    </ul>
+                </div>        
+
+            </div>        
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+           <div class="well profile_view">
+              <div class="col-sm-12">
+                 <h4 class="brief"><i>Digital Strategist</i></h4>
+                 <div class="left col-xs-7">
+                    <h2>Nicole Pearson</h2>
+                    <p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                    <ul class="list-unstyled">
+                       <li><i class="fa fa-building"></i> Address: </li>
+                       <li><i class="fa fa-phone"></i> Phone #: </li>
+                    </ul>
+                 </div>
+                 <div class="right col-xs-5 text-center">
+                    <img src="{{ asset('images/img.jpg') }}" alt="" class="img-circle img-responsive">
+                 </div>
+              </div>
+              <div class="col-xs-12 bottom text-center">
+                 <div class="col-xs-12 col-sm-6 emphasis">
+                    <p class="ratings">
+                       <a>4.0</a>
+                       <a href="#"><span class="fa fa-star"></span></a>
+                       <a href="#"><span class="fa fa-star"></span></a>
+                       <a href="#"><span class="fa fa-star"></span></a>
+                       <a href="#"><span class="fa fa-star"></span></a>
+                       <a href="#"><span class="fa fa-star-o"></span></a>
+                    </p>
+                 </div>
+                 <div class="col-xs-12 col-sm-6 emphasis">
+                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
+                        </i> <i class="fa fa-comments-o"></i> </button>
+                    <button type="button" class="btn btn-primary btn-xs">
+                        <i class="fa fa-user"> </i> View Profile
+                    </button>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+    </div>
+
+{% endblock %}

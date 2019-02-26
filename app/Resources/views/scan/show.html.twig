@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Scan</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ scan.id }}</td>
+            </tr>
+            <tr>
+                <th>Productid</th>
+                <td>{{ scan.productId }}</td>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <td>{{ scan.score }}</td>
+            </tr>
+            <tr>
+                <th>Createdtime</th>
+                <td>{% if scan.createdTime %}{{ scan.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Qrvalue</th>
+                <td>{{ scan.qrValue }}</td>
+            </tr>
+            <tr>
+                <th>Clientid</th>
+                <td>{{ scan.clientId }}</td>
+            </tr>
+            <tr>
+                <th>Remainingscore</th>
+                <td>{{ scan.remainingScore }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('scan_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('scan_edit', { 'id': scan.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

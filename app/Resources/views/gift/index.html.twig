@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Gifts list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Value</th>
+                <th>Name</th>
+                <th>Qt</th>
+                <th>Logo</th>
+                <th>Pathlogo</th>
+                <th>Createdtime</th>
+                <th>Modifiedtime</th>
+                <th>Createdby</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for gift in gifts %}
+            <tr>
+                <td><a href="{{ path('gift_show', { 'id': gift.id }) }}">{{ gift.id }}</a></td>
+                <td>{{ gift.value }}</td>
+                <td>{{ gift.name }}</td>
+                <td>{{ gift.qt }}</td>
+                <td>{{ gift.logo }}</td>
+                <td>{{ gift.pathLogo }}</td>
+                <td>{% if gift.createdTime %}{{ gift.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if gift.modifiedTime %}{{ gift.modifiedTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ gift.createdBy }}</td>
+                <td>{{ gift.description }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('gift_show', { 'id': gift.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('gift_edit', { 'id': gift.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('gift_new') }}">Create a new gift</a>
+        </li>
+    </ul>
+{% endblock %}

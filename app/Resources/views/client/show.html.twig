@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Client</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ client.id }}</td>
+            </tr>
+            <tr>
+                <th>Userid</th>
+                <td>{{ client.userId }}</td>
+            </tr>
+            <tr>
+                <th>Createdtime</th>
+                <td>{% if client.createdTime %}{{ client.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modifiedtime</th>
+                <td>{% if client.modifiedTime %}{{ client.modifiedTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Currentscore</th>
+                <td>{{ client.currentScore }}</td>
+            </tr>
+            <tr>
+                <th>Displayname</th>
+                <td>{{ client.displayName }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td>{{ client.picture }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ client.tel }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ client.email }}</td>
+            </tr>
+            <tr>
+                <th>Lastconnected</th>
+                <td>{% if client.lastConnected %}{{ client.lastConnected|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('client_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('client_edit', { 'id': client.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
