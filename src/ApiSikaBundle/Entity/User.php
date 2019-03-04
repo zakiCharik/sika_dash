@@ -3,6 +3,7 @@
 namespace ApiSikaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiSikaBundle\Entity\Client;
 
 /**
  * User
@@ -34,6 +35,13 @@ class User
      * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      */
     private $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     */
+    private $photo;
 
     /**
      * @var string
@@ -77,6 +85,16 @@ class User
      */
     private $lastConnect;
 
+    /**
+    * @ORM\OneToOne(targetEntity=Client::class, cascade={"persist", "remove"})
+    */
+    protected $client;
+
+
+    public function __construct()
+    {
+        $this->createdTime = new \Datetime(); 
+    }
 
     /**
      * Get id
@@ -134,6 +152,54 @@ class User
     public function getFirstName()
     {
         return $this->firstName;
+    }
+
+    /**
+     * Set client
+     *
+     * @param Client::class $client
+     *
+     * @return User
+     */
+    public function setClient(Client $client = null)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return Client::class
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     *
+     * @return User
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 
     /**

@@ -37,7 +37,11 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-
+    globals:
+        #parameter_name: value
+        clients_images: '%kernel.project_dir%/web%app.path.clients_images%'
+        users_images: '%kernel.project_dir%/web%app.path.users_images%'
+        gifts_images: '%kernel.project_dir%/web%app.path.gifts_images%'
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -61,8 +65,23 @@ swiftmailer:
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
+    auth-mode: login
     spool: { type: memory }
 
 sensio_framework_extra:
    router:
         annotations: false
+# config/packages/vich_uploader.yaml
+vich_uploader:
+    db_driver: orm
+    # ...
+    mappings:
+        clients_images:
+            uri_prefix:         '%app.path.clients_images%'
+            upload_destination: '%kernel.project_dir%/web%app.path.clients_images%'
+        users_images:
+            uri_prefix:         '%app.path.users_images%'
+            upload_destination: '%kernel.project_dir%/web%app.path.users_images%'
+        gifts_images:
+            uri_prefix:         '%app.path.gifts_images%'
+            upload_destination: '%kernel.project_dir%/web%app.path.gifts_images%'

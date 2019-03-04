@@ -58,6 +58,36 @@ class UserController extends Controller
     }
 
     /**
+     * Creates a new user entity.
+     *
+     * @Route("/new_xhr", name="user_xhr_new")
+     * @Method({"POST"})
+     */
+    public function newXhrAction(Request $request)
+    {
+        if ($request->isXMLHttpRequest()) {
+            # code...
+        }
+
+        // $user = new User();
+        // $form = $this->createForm('ApiSikaBundle\Form\UserType', $user);
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $em = $this->getDoctrine()->getManager();
+        //     $em->persist($user);
+        //     $em->flush();
+
+        //     return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+        // }
+
+        // return $this->render('user/new.html.twig', array(
+        //     'user' => $user,
+        //     'form' => $form->createView(),
+        // ));
+    }
+
+    /**
      * Finds and displays a user entity.
      *
      * @Route("/{id}", name="user_show")

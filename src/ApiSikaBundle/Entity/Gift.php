@@ -3,9 +3,14 @@
 namespace ApiSikaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiSikaBundle\Entity\Client;
+
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Gift
+ * @Vich\Uploadable
  *
  * @ORM\Table(name="gift")
  * @ORM\Entity(repositoryClass="ApiSikaBundle\Repository\GiftRepository")
@@ -41,6 +46,12 @@ class Gift
      * @ORM\Column(name="qt", type="integer", nullable=true)
      */
     private $qt;
+
+    /**
+     * @Vich\UploadableField(mapping="gifts_images", fileNameProperty="logo")
+     * @var File
+     */
+    private $logoFile;
 
     /**
      * @var string
@@ -84,6 +95,16 @@ class Gift
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="gifts")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     */    
+    private $clientId;
+
+    public function __construct()
+    {
+        $this->createdTime = new \Datetime(); 
+    }
 
     /**
      * Get id
@@ -108,6 +129,32 @@ class Gift
 
         return $this;
     }
+
+
+    /**
+     * Set clientId
+     *
+     * @param Client $clientId
+     *
+     * @return Gift
+     */
+    public function setClientId($clientId)
+    {
+        $this->clientId = $clientId;
+
+        return $this;
+    }
+
+    /**
+     * Get clientId
+     *
+     * @return Gift
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
 
     /**
      * Get value
@@ -165,6 +212,38 @@ class Gift
     public function getQt()
     {
         return $this->qt;
+    }
+
+
+
+    /**
+     * Set logoFile
+     *
+     * @param File $image
+     *
+     * @return Client
+     */
+    public function setLogoFile(File $image = null)
+    {
+        $this->logoFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->modifiedTime = new \DateTime('now');
+        }
+    }
+
+    /**
+     * Get logoFile
+     *
+     * @return File
+     */
+    public function getLogoFile()
+    {
+        return $this->logoFile;
     }
 
     /**

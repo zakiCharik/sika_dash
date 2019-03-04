@@ -4,10 +4,15 @@ namespace ApiSikaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiSikaBundle\Entity\Scan;
+use ApiSikaBundle\Entity\Gift;
+use ApiSikaBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Client
+ * @Vich\Uploadable
  *
  * @ORM\Table(name="client")
  * @ORM\Entity(repositoryClass="ApiSikaBundle\Repository\ClientRepository")
@@ -80,6 +85,12 @@ class Client
     private $picture;
 
     /**
+     * @Vich\UploadableField(mapping="clients_images", fileNameProperty="picture")
+     * @var File
+     */
+    private $pictureFile;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="tel", type="string", length=255, nullable=true)
@@ -105,12 +116,107 @@ class Client
      */
     private $scans;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Gift", mappedBy="clientId")
+     */
+    private $gifts;
+
+    /**
+    * @ORM\OneToOne(targetEntity=Client::class, cascade={"persist", "remove"})
+    */
+    protected $user;
+
     public function __construct()
     {
         $this->scans = new ArrayCollection();
+        $this->gifts = new ArrayCollection();
         $this->createdTime = new \Datetime(); 
     }
+//-- Gift List
 
+    // Notez le singulier, on ajoute une seule catégorie à la fois
+    public function addGifts(Gift $gift)
+    {
+        // Ici, on utilise l'ArrayCollection vraiment comme un tableau
+        $this->gifts[] = $gift;
+
+        return $this;
+    }
+
+    public function removeGifts(Gift $gift)
+    {
+        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+        $this->gifts->removeElement($gift);
+    }
+
+    /**
+     * Set gifts
+     *
+     * @param ArrayCollection $gifts
+     *
+     * @return Client
+     */
+    public function setGifts($gifts)
+    {
+        $this->gifts = $gifts;
+
+        return $this;
+    }
+
+    /**
+     * Get gifts
+     *
+     * @return ArrayCollection
+     */
+    public function getGifts()
+    {
+        return $this->gifts;
+    }
+//-- Gift List
+
+//--- Scan List
+
+
+
+    // Notez le singulier, on ajoute une seule catégorie à la fois
+    public function addScan(Scan $scan)
+    {
+        // Ici, on utilise l'ArrayCollection vraiment comme un tableau
+        $this->scans[] = $scan;
+
+        return $this;
+    }
+
+    public function removeCategory(Scan $scan)
+    {
+        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+        $this->scans->removeElement($scan);
+    }
+
+    /**
+     * Set scans
+     *
+     * @param ArrayCollection $scans
+     *
+     * @return Client
+     */
+    public function setScans($scans)
+    {
+        $this->scans = $scans;
+
+        return $this;
+    }
+
+    /**
+     * Get scans
+     *
+     * @return ArrayCollection
+     */
+    public function getScans()
+    {
+        return $this->scans;
+    }
+//--- Scan List
 
     /**
      * Get id
@@ -120,6 +226,30 @@ class Client
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param User $userId
+     *
+     * @return Client
+     */
+    public function setUser(User $userId = null)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->userId;
     }
 
     /**
@@ -291,43 +421,34 @@ class Client
     }
 
 
-    // Notez le singulier, on ajoute une seule catégorie à la fois
-    public function addScan(Scan $scan)
-    {
-        // Ici, on utilise l'ArrayCollection vraiment comme un tableau
-        $this->scans[] = $scan;
-
-        return $this;
-    }
-
-    public function removeCategory(Scan $scan)
-    {
-        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
-        $this->scans->removeElement($scan);
-    }
-
     /**
-     * Set scans
+     * Set pictureFile
      *
-     * @param ArrayCollection $scans
+     * @param File $image
      *
      * @return Client
      */
-    public function setScans($scans)
+    public function setPictureFile(File $image = null)
     {
-        $this->scans = $scans;
+        $this->pictureFile = $image;
 
-        return $this;
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->modifiedTime = new \DateTime('now');
+        }
     }
 
     /**
-     * Get scans
+     * Get pictureFile
      *
-     * @return ArrayCollection
+     * @return File
      */
-    public function getScans()
+    public function getPictureFile()
     {
-        return $this->scans;
+        return $this->pictureFile;
     }
 
     /**

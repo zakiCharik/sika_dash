@@ -92,6 +92,11 @@ class Product
     private $qrId;
 
 
+
+    public function __construct()
+    {
+        $this->createdTime = new \Datetime(); 
+    }
     /**
      * Get id
      *

@@ -2,7 +2,10 @@
 # https://symfony.com/doc/current/service_container.html
 parameters:
     #parameter_name: value
-
+    app.path.clients_images: /uploads/images/clients
+    app.path.users_images: /uploads/images/users
+    app.path.gifts_images: /uploads/images/gifts
+    # ...
 services:
     # default configuration for services in *this* file
     _defaults:

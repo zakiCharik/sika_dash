@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use ApiSikaBundle\Form\UserType;
 
 
 class ClientType extends AbstractType
@@ -19,12 +20,14 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('userId')
+        ->add('user', UserType::class)
         // ->add('currentScore')
-        ->add('displayName',TextType::class)
-        ->add('contactadmin',TextType::class)
-        ->add('compteclient',TextType::class)
-        ->add('scans')
+        ->add('displayName',TextType::class, [
+            'label' => 'Nom de société'])
+        ->add('contactadmin',TextType::class, [
+            'label' => 'Contact Administratif'])
+        ->add('compteclient',TextType::class, [
+            'label' => 'Compte Client'])
         ->add('picture',FileType::class, [
             'label' => 'Uploader un fichier ',
             'attr' => ['class' => 'file','required'=>"required"],
@@ -35,7 +38,7 @@ class ClientType extends AbstractType
         ])
         ->add('email', EmailType::class, [
             'label' => 'Address Email',
-            'attr' => ['class' => 'form-control ','required'=>"required", 'data-inputmask'=> "'mask' : '***********@***.***'"],
+            'attr' => ['class' => 'form-control ','required'=>"required"],
         ]);
     }
     /**

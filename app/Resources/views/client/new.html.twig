@@ -22,7 +22,7 @@
         <div class="col-md-8 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Client <small>création </small></h2>
+                    <h2>Client <small>création - <a href="{{ path('client_index') }}">Revenir à la liste</a></small></h2>
 
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -47,13 +47,7 @@
                 </div>        
                 <div class="x_content">
                     {{ form_start(form, {'method': 'POST',  'attr' : { 'class': 'form-horizontal form-label-left' } } ) }}
-                        <div class="form-group">
-                            {{ form_label(form.userId ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
-                            {{ form_errors(form.userId) }}
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                {{ form_widget(form.userId, { 'attr': {'class': 'form-control '}} ) }}
-                            </div>        
-                        </div > 
+
                         <div class="form-group">
                             {{ form_label(form.displayName ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
                             {{ form_errors(form.displayName) }}
@@ -74,21 +68,7 @@
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 {{ form_widget(form.compteclient, { 'attr': {'class': 'form-control '}} ) }}
                             </div>        
-                        </div > 
-                        <div class="form-group">
-                            {{ form_label(form.scans ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
-                            {{ form_errors(form.scans) }}
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                {{ form_widget(form.scans, { 'attr': {'class': 'form-control '}} ) }}
-                            </div>        
-                        </div >   
-                        <div class="form-group">
-                            {{ form_label(form.picture ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
-                            {{ form_errors(form.picture) }}
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                {{ form_widget(form.picture, { 'attr': {'class': 'file '}} ) }}
-                            </div>        
-                        </div > 
+                        </div >     
                         <div class="form-group">
                             {{ form_label(form.tel ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
                             {{ form_errors(form.tel) }}
@@ -102,59 +82,75 @@
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 {{ form_widget(form.email, { 'attr': {'class': 'form-control '}} ) }}
                             </div>        
-                        </div >   
+                        </div >     
+                        <div class="form-group">
+                            {{ form_label(form.picture ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.picture) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.picture, { 'attr': {'class': 'file '}} ) }}
+                            </div>        
+                        </div >
+                        
+                        <hr />
+                        <h2>Utilisateur </h2>
 
-                        <input type="submit" value="Create" />
+                        <div class="form-group">
+                            {{ form_label(form.user.login ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.user.login) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.user.login, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >    
+                        <div class="form-group">
+                            {{ form_label(form.user.password ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.user.password) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.user.password, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >    
+                        
+                            <input type="submit" value="Create" class=" btn btn-success" />
                     {{ form_end(form) }}
 
-                    <ul>
-                        <li>
-                            <a href="{{ path('client_index') }}">Back to the list</a>
-                        </li>
-                    </ul>
                 </div>        
 
             </div>        
         </div>
-
         <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-           <div class="well profile_view">
-              <div class="col-sm-12">
-                 <h4 class="brief"><i>Digital Strategist</i></h4>
-                 <div class="left col-xs-7">
-                    <h2>Nicole Pearson</h2>
-                    <p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>
-                    <ul class="list-unstyled">
-                       <li><i class="fa fa-building"></i> Address: </li>
-                       <li><i class="fa fa-phone"></i> Phone #: </li>
-                    </ul>
-                 </div>
-                 <div class="right col-xs-5 text-center">
-                    <img src="{{ asset('images/img.jpg') }}" alt="" class="img-circle img-responsive">
-                 </div>
-              </div>
-              <div class="col-xs-12 bottom text-center">
-                 <div class="col-xs-12 col-sm-6 emphasis">
-                    <p class="ratings">
-                       <a>4.0</a>
-                       <a href="#"><span class="fa fa-star"></span></a>
-                       <a href="#"><span class="fa fa-star"></span></a>
-                       <a href="#"><span class="fa fa-star"></span></a>
-                       <a href="#"><span class="fa fa-star"></span></a>
-                       <a href="#"><span class="fa fa-star-o"></span></a>
-                    </p>
-                 </div>
-                 <div class="col-xs-12 col-sm-6 emphasis">
-                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                        </i> <i class="fa fa-comments-o"></i> </button>
-                    <button type="button" class="btn btn-primary btn-xs">
-                        <i class="fa fa-user"> </i> View Profile
-                    </button>
-                 </div>
-              </div>
-           </div>
-        </div>
 
+            <div class="col-md-12 col-sm-12 col-xs-12 profile_details">
+                <div class="well profile_view">
+                    <div class="col-sm-12">
+                        <h4 class="brief"><i>Génération des accès</i></h4>
+                        <div class="left col-xs-12">
+
+                            <p><i class="fa fa-info-circle"></i>   Pour générer les accès pour un utilisateur, il suffit d'entrer l'email dans la création de client et ensuite passer à la génération sans encore valider le client. Afin d'affecter un nom d'utilisateur et password à ce client.</p>
+                            <br />
+                            <div class="form-horizontal form-label-left input_mask">
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input type="email" class="form-control has-feedback-right" id="_generated-email" placeholder="Email" disabled>
+                                    <span class="fa fa-user form-control-feedback " aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                    <input type="password" id="_generated-password" class="form-control has-feedback-right"  placeholder="Mot de passe" disabled>
+                                    <span class="fa fa-lock form-control-feedback " aria-hidden="true"></span>
+                                </div>  
+                                <button id="_generated-password-change" >
+                                    <span class="fa fa-eye-slash"></span>
+                                </button>                                 
+                            </div>
+                        </div>
+                      </div>
+                    <div class="col-xs-12 bottom text-right">
+                        <button type="button" class="btn btn-primary btn-xs" id="_to-generate-pass" data-size="32" data-character-set="a-z,A-Z,0-9,#">
+                            <i class="fa fa-user"> </i> Générer un password
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 {% endblock %}
+

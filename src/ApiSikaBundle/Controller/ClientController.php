@@ -44,9 +44,34 @@ class ClientController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('apisikabundle_client');
+
+            $client->setPictureFile($file["picture"]);
+            //persisting the data given by the user in  frist place to send the mail confirmation later
             $em = $this->getDoctrine()->getManager();
             $em->persist($client);
             $em->flush();
+
+            //sending email using swift_message
+            $message = (new \Swift_Message('Hello Email'))
+                // get the username from the setup configuration in paramters.yml
+                ->setFrom($this->container->getParameter('mailer_user'))
+                ->setTo($client->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        // app/Resources/views/Emails/registration.html.twig
+                        'Emails/registration.html.twig',
+                        ['name' => $client->getContactadmin()]
+                    ),
+                    'text/html'
+                )
+            ;
+
+            // $mailer->send($message);
+
+            // or, you can also fetch the mailer service this way
+            $this->get('mailer')->send($message);
+
 
             return $this->redirectToRoute('client_show', array('id' => $client->getId()));
         }

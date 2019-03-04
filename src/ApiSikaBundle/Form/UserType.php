@@ -5,7 +5,9 @@ namespace ApiSikaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+    
 class UserType extends AbstractType
 {
     /**
@@ -13,7 +15,19 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('login')->add('firstName')->add('lastName')->add('password')->add('salt')->add('createdTime')->add('modified')->add('lastConnect');
+        $builder
+            ->add('login',TextType::class, [
+            'label' => 'Nom d\'utilisateur'])
+            // ->add('firstName',TextType::class, [
+            // 'label' => 'Compte Client'])
+            // ->add('lastName',TextType::class, [
+            // 'label' => 'Compte Client'])
+            ->add('password',PasswordType::class)
+            // ->add('salt')
+            // ->add('createdTime')
+            // ->add('modified')
+            // ->add('lastConnect')
+            ;
     }/**
      * {@inheritdoc}
      */
