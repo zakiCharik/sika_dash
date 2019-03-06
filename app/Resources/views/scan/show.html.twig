@@ -1,52 +1,111 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Scan</h1>
+    <div class="">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>Génération des coupons <small>Historique </small></h3>
+          </div>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ scan.id }}</td>
-            </tr>
-            <tr>
-                <th>Productid</th>
-                <td>{{ scan.productId }}</td>
-            </tr>
-            <tr>
-                <th>Score</th>
-                <td>{{ scan.score }}</td>
-            </tr>
-            <tr>
-                <th>Createdtime</th>
-                <td>{% if scan.createdTime %}{{ scan.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Qrvalue</th>
-                <td>{{ scan.qrValue }}</td>
-            </tr>
-            <tr>
-                <th>Clientid</th>
-                <td>{{ scan.clientId }}</td>
-            </tr>
-            <tr>
-                <th>Remainingscore</th>
-                <td>{{ scan.remainingScore }}</td>
-            </tr>
-        </tbody>
-    </table>
+          <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="clearfix"></div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Edition des Coupons</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
 
-    <ul>
-        <li>
-            <a href="{{ path('scan_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('scan_edit', { 'id': scan.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+
+
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ scan.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Productid</th>
+                                    <td>{{ scan.qt }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Score</th>
+                                    <td>{{ scan.score }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Createdtime</th>
+                                    <td>{% if scan.createdTime %}{{ scan.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <th>Qrvalue</th>
+                                    <td>{{ scan.qrValue }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Clientid</th>
+                                    <td>{{ scan.clientId }}</td>
+                                </tr>
+                                <tr>
+                                    <th>QR</th>
+                                    <td>
+                                        <img src="data:image/png;base64,
+                                        {{ barcode({code: 'SIKA;MOBILE;PRODUCTID;' ~ scan.createdTime|date('Y-m-d H:i:s') ~';'~ scan.qrValue, type: 'qrcode', format: 'png', width: 10, height: 10, color: [0, 0, 0]}) }}
+                                        " />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Remainingscore</th>
+                                    <td>{{ scan.remainingScore }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <ul>
+                            <li>
+                                <a href="{{ path('scan_new') }}">Back to the list</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('scan_edit', { 'id': scan.id }) }}">Edit</a>
+                            </li>
+                            <li>
+                                {{ form_start(delete_form) }}
+                                    <input type="submit" value="Delete">
+                                {{ form_end(delete_form) }}
+                            </li>
+                        </ul>
+
+
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>                        
 {% endblock %}

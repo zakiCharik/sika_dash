@@ -51,13 +51,13 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <!-- Current avatar -->
-                          <img class="img-responsive avatar-view" src="{{ asset('uploads/images/clients/'~client.picture) }}" alt="Avatar" title="Change the avatar">
+                          <img class="img-responsive avatar-view img-circle profile_img"  src="{{ asset('uploads/images/clients/'~client.picture) }}" alt="Avatar" title="Change the avatar">
                         </div>
                       </div>
                       <h3>{{ client.displayName }}</h3>
 
                       <ul class="list-unstyled user_data">
-                        <li><i class="fa fa-map-marker user-profile-icon"></i> {{ client.displayName }}
+                        <li><i class="fa fa-building user-profile-icon"></i> {{ client.displayName }}
                         </li>
 
                         <li>
@@ -221,62 +221,4 @@
         <!-- /page content -->
 
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ client.id }}</td>
-            </tr>
-            <tr>
-                <th>Userid</th>
-                <td>{{ client.userId }}</td>
-            </tr>
-            <tr>
-                <th>Createdtime</th>
-                <td>{% if client.createdTime %}{{ client.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Modifiedtime</th>
-                <td>{% if client.modifiedTime %}{{ client.modifiedTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Currentscore</th>
-                <td>{{ client.currentScore }}</td>
-            </tr>
-            <tr>
-                <th>Displayname</th>
-                <td>{{ client.displayName }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td><img src="{{ asset('uploads/images/clients/'~client.picture) }}" width="90"/></td>
-            </tr>
-            <tr>
-                <th>Tel</th>
-                <td>{{ client.tel }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ client.email }}</td>
-            </tr>
-            <tr>
-                <th>Lastconnected</th>
-                <td>{% if client.lastConnected %}{{ client.lastConnected|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('client_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('client_edit', { 'id': client.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

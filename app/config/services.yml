@@ -5,7 +5,9 @@ parameters:
     app.path.clients_images: /uploads/images/clients
     app.path.users_images: /uploads/images/users
     app.path.gifts_images: /uploads/images/gifts
+    app.path.scans_images: /uploads/doc/scan
     # ...
+    qr_directory: '%kernel.project_dir%/public/uploads/qr'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -36,3 +38,6 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    # the `white_october.tcpdf` service will be injected when a
+    # `WhiteOctober\TCPDFBundle\Controller\TCPDFController` type-hint is detected
+    WhiteOctober\TCPDFBundle\Controller\TCPDFController: '@white_october.tcpdf'

@@ -82,14 +82,14 @@
                                     </li>
                                     <li><a><i class="fa fa-print"></i> Gestion des coupons<span class="fa fa-chevron-down"></span></a>
                                       <ul class="nav child_menu">
-                                        <li><a href="general_elements.html">Historique des scans</a></li>
-                                        <li><a href="general_elements.html">Historique des converstions</a></li>
+                                        <li><a href="{{ path('scan_index') }}">Historique des scans</a></li>
+                                        <li><a href="{{ path('gift_index') }}">Historique des converstions</a></li>
                                       </ul>
                                     </li>
                                     <li><a><i class="fa fa-gift"></i>Gestion de récompense<span class="fa fa-chevron-down"></span></a>
                                       <ul class="nav child_menu">
-                                        <li><a href="tables.html">Valorisation des points</a></li>
-                                        <li><a href="tables_dynamic.html">Gestion des converstions</a></li>
+                                        <li><a href="{{ path('gift_new') }}">Valorisation des points</a></li>
+                                        <li><a href="{{ path('gift_index') }}">Gestion des converstions</a></li>
                                       </ul>
                                     </li>
                                     <li><a><i class="fa fa-bar-chart-o"></i> Monitoring <span class="fa fa-chevron-down"></span></a>

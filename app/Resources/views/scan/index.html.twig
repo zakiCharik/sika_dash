@@ -1,49 +1,107 @@
 {% extends 'base.html.twig' %}
 
+{% block tiles %}{% endblock %}
 {% block body %}
-    <h1>Scans list</h1>
+    <div class="">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>Génération des coupons <small>Historique </small></h3>
+          </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Productid</th>
-                <th>Score</th>
-                <th>Createdtime</th>
-                <th>Qrvalue</th>
-                <th>Clientid</th>
-                <th>Remainingscore</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for scan in scans %}
-            <tr>
-                <td><a href="{{ path('scan_show', { 'id': scan.id }) }}">{{ scan.id }}</a></td>
-                <td>{{ scan.productId }}</td>
-                <td>{{ scan.score }}</td>
-                <td>{% if scan.createdTime %}{{ scan.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ scan.qrValue }}</td>
-                <td>{{ scan.clientId }}</td>
-                <td>{{ scan.remainingScore }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('scan_show', { 'id': scan.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('scan_edit', { 'id': scan.id }) }}">edit</a>
-                        </li>
+          <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="clearfix"></div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Liste des lots</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
                     </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
 
-    <ul>
-        <li>
-            <a href="{{ path('scan_new') }}">Create a new scan</a>
-        </li>
-    </ul>
+                    <p>Table lots génerer</p>
+
+                    <!-- start project list -->
+                    <table class="table table-striped projects">
+                        <thead>
+                            <tr>
+                              <th style="width: 1%">#</th>
+                              <th style="width: 20%">Date de création</th>
+                              <th>Nombre des coupons</th>
+                              <th>Valeur des coupons</th>
+                              <th>Date de génération</th>
+                              <th style="width: 20%">#Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for scan in scans %}
+
+                                <tr>
+                                    <td>{{ scan.id }}</td>
+                                    <td>
+                                        <a>{{ scan.clientId }}</a>
+                                        <br />
+                                        <small>
+                                            {% if scan.createdTime %}{{ scan.createdTime|date('Y-m-d H:i:s') }}{% endif %}
+                                        </small>
+                                    </td>
+                                    <td>#{{ scan.qt }}</td>
+                                    <td>{{ scan.qrValue }}</td>                                      
+                                    <td>
+                                        {% if scan.generationTime %}{{ scan.generationTime|date('Y-m-d H:i:s') }}{% endif %}                                        
+                                    </td>
+
+                                    <td>
+                                        <a href="{{ path('scan_edit', { 'id': scan.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Print </a>
+
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- end project list -->
+
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

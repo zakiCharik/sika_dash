@@ -13,7 +13,21 @@ class ScanType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('productId')->add('score')->add('createdTime')->add('qrValue')->add('clientId')->add('remainingScore');
+        $builder
+        ->add('qt',null, [
+            'label' => 'Nombre de coupons ',
+            'attr' => ['class' => 'form-control','required'=>"required"],
+        ])
+        // ->add('score')
+        // ->add('createdTime')
+        // ->add('generationTime')
+        ->add('qrValue',null, [
+            'label' => 'Valeur du coupons',
+            'attr' => ['class' => 'form-control','required'=>"required"],
+        ])
+        // ->add('clientId')
+        // ->add('remainingScore')
+        ;
     }/**
      * {@inheritdoc}
      */

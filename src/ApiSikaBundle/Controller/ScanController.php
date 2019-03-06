@@ -5,7 +5,10 @@ namespace ApiSikaBundle\Controller;
 use ApiSikaBundle\Entity\Scan;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\Routing\Annotation\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * Scan controller.
@@ -42,17 +45,35 @@ class ScanController extends Controller
         $scan = new Scan();
         $form = $this->createForm('ApiSikaBundle\Form\ScanType', $scan);
         $form->handleRequest($request);
+        //get all scan
+        $em = $this->getDoctrine()->getManager();
+        $scans = $em->getRepository('ApiSikaBundle:Scan')->findAll();
+
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //generate the qrcode with the given value qt
+
+            //create the doc using the qr and the qt
+
+            //Persist the doc in the entity
+
+            //return the url t the doc and display t the view after persist
             $em = $this->getDoctrine()->getManager();
             $em->persist($scan);
             $em->flush();
 
-            return $this->redirectToRoute('scan_show', array('id' => $scan->getId()));
+            return $this->render('scan_new', array(
+                'scans' => $scans,
+                'scan' => $scan,
+                'qr' => '-',
+                'form' => $form->createView(),
+            ));
         }
 
         return $this->render('scan/new.html.twig', array(
+            'scans' => $scans,
             'scan' => $scan,
+            'qr' => '-',
             'form' => $form->createView(),
         ));
     }
@@ -133,4 +154,68 @@ class ScanController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Print a  scan entity.
+     *
+     * @Route("/{id}/print", name="scan_print")
+     * @Method({"GET"})
+     */
+    public function PDF_ScanAction(Scan $scan)
+    {
+
+        $options = array(
+            'code'   => 'SIKA;MOBILE;PRODUCTID;'.$scan->getCreatedTime()->format('d/m/Y').';'. $scan->getQrValue(),
+            'type'   => 'qrcode',
+            'format' => 'html',
+        );
+
+        $barcode =  $this->get('skies_barcode.generator')->generate($options);
+
+        $pdf = $this->get("white_october.tcpdf")->create();
+        $html = $this->render('scan/printGenerated.pdf.twig', array(
+            'scan' => $scan,
+            'barcode' => $barcode
+        ));
+     
+     
+        // Retire le footer/header par défaut, contenant les barres de margin
+        $pdf->setPrintFooter(false);
+        $pdf->setPrintHeader(false);
+     
+        // Ajout page
+
+        // set style for barcode
+        $style = array(
+            'border' => 2,
+            'vpadding' => 'auto',
+            'hpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255)
+            'module_width' => 1, // width of a single module in points
+            'module_height' => 1 // height of a single module in points
+        );
+            $pdf->AddPage();
+
+        for( $j = 1;$j < $scan->getQt()+1/4; $j++  ){
+            for( $i = 0;$i < 200; $i = $i + 40  ){
+                $pdf->write2DBarcode('SIKA;MOBILE;PRODUCTID;'.$scan->getCreatedTime()->format('d/m/Y').';'. $scan->getQrValue(), 'QRCODE,L',$i, $j*40, 40, 40, $style, 'N');                
+            }
+
+        }        
+        // $pdf->writeHTML($html, true, false, true, false, '');
+        // Reset pointeur
+        // $pdf->lastPage();
+        //
+        $response = new Response($pdf->Output('printGenerated.pdf'));
+        //update the $scan object and generate the doc 
+        $scan->setDocFile($response);
+        $scan->setGenerationTime(new\Datetime());
+        $this->getDoctrine()->getManager()->flush();
+
+        $response->headers->set('Content-Type', 'application/pdf');
+          
+        return $response;
+    }
+
 }

@@ -4,9 +4,12 @@ namespace ApiSikaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiSikaBundle\Entity\Client;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Scan
+ * @Vich\Uploadable
  *
  * @ORM\Table(name="scan")
  * @ORM\Entity(repositoryClass="ApiSikaBundle\Repository\ScanRepository")
@@ -25,9 +28,9 @@ class Scan
     /**
      * @var int
      *
-     * @ORM\Column(name="product_id", type="integer", nullable=true)
+     * @ORM\Column(name="qt", type="integer", nullable=true)
      */
-    private $productId;
+    private $qt;
 
     /**
      * @var int
@@ -44,17 +47,32 @@ class Scan
     private $createdTime;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="generation_time", type="datetime", nullable=true)
+     */
+    private $generationTime;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="qr_value", type="string", length=255, nullable=true)
+     * @ORM\Column(name="qr_value", type="integer", nullable=true)
      */
     private $qrValue;
 
+
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="client_id", type="integer", nullable=true)
+     * @ORM\Column(name="doc", type="string", length=255, nullable=true)
      */
+    private $doc;
+
+    /**
+     * @Vich\UploadableField(mapping="clients_images", fileNameProperty="doc")
+     * @var File
+     */
+    private $docFile;
 
     /**
      * @ORM\ManyToOne(targetEntity="Client", inversedBy="scans")
@@ -86,27 +104,27 @@ class Scan
     }
 
     /**
-     * Set productId
+     * Set qt
      *
-     * @param integer $productId
+     * @param integer $qt
      *
      * @return Scan
      */
-    public function setProductId($productId)
+    public function setQt($qt)
     {
-        $this->productId = $productId;
+        $this->qt = $qt;
 
         return $this;
     }
 
     /**
-     * Get productId
+     * Get qt
      *
      * @return int
      */
-    public function getProductId()
+    public function getQt()
     {
-        return $this->productId;
+        return $this->qt;
     }
 
     /**
@@ -147,6 +165,7 @@ class Scan
         return $this;
     }
 
+
     /**
      * Get createdTime
      *
@@ -156,6 +175,88 @@ class Scan
     {
         return $this->createdTime;
     }
+
+    /**
+     * Set generationTime
+     *
+     * @param \DateTime $generationTime
+     *
+     * @return Scan
+     */
+    public function setGenerationTime($generationTime)
+    {
+        $this->generationTime = $generationTime;
+
+        return $this;
+    }
+
+
+    /**
+     * Get createdTime
+     *
+     * @return \DateTime
+     */
+    public function getGenerationTime()
+    {
+        return $this->generationTime;
+    }
+
+
+    /**
+     * Set docFile
+     *
+     * @param File $image
+     *
+     * @return Scan
+     */
+    public function setDocFile(File $doc = null)
+    {
+        $this->docFile = $doc;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($doc) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->createdTime = new \DateTime('now');
+        }
+    }
+
+    /**
+     * Get docFile
+     *
+     * @return File
+     */
+    public function getDocFile()
+    {
+        return $this->docFile;
+    }
+
+    /**
+     * Set doc
+     *
+     * @param string $doc
+     *
+     * @return Scan
+     */
+    public function setDoc($doc)
+    {
+        $this->doc = $doc;
+
+        return $this;
+    }
+
+    /**
+     * Get doc
+     *
+     * @return string
+     */
+    public function getDoc()
+    {
+        return $this->doc;
+    }
+
+
 
     /**
      * Set qrValue

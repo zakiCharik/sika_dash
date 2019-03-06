@@ -44,13 +44,10 @@ class ClientController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Get the file picture from form
             $file = $request->files->get('apisikabundle_client');
-
+            //Set the file picture
             $client->setPictureFile($file["picture"]);
-            //persisting the data given by the user in  frist place to send the mail confirmation later
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($client);
-            $em->flush();
 
             //sending email using swift_message
             $message = (new \Swift_Message('Hello Email'))
@@ -61,7 +58,8 @@ class ClientController extends Controller
                     $this->renderView(
                         // app/Resources/views/Emails/registration.html.twig
                         'Emails/registration.html.twig',
-                        ['name' => $client->getContactadmin()]
+                        ['name' => $client->getContactadmin(),
+                        'user' => $client->getUser()]
                     ),
                     'text/html'
                 )
@@ -71,7 +69,18 @@ class ClientController extends Controller
 
             // or, you can also fetch the mailer service this way
             $this->get('mailer')->send($message);
+            //persisting the client
 
+            //persisting the data given by the user in  frist place to send the mail confirmation later
+            $em = $this->getDoctrine()->getManager();
+
+
+            $em->persist($client);
+
+            //persist the user before persisting the client
+            $em->persist($client);
+            $em->persist($client->getUser());
+            $em->flush();
 
             return $this->redirectToRoute('client_show', array('id' => $client->getId()));
         }
