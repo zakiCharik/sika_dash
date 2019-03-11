@@ -42,8 +42,18 @@ class GiftController extends Controller
         $gift = new Gift();
         $form = $this->createForm('ApiSikaBundle\Form\GiftType', $gift);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+
+        $gifts = $em->getRepository('ApiSikaBundle:Gift')->findAll();
+
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Get the file picture from form
+            $file = $request->files->get('apisikabundle_gift');
+            //Set the file picture
+            $gift->setPathLogo($file["pathLogo"]);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($gift);
             $em->flush();
@@ -53,6 +63,7 @@ class GiftController extends Controller
 
         return $this->render('gift/new.html.twig', array(
             'gift' => $gift,
+            'gifts' => $gifts,
             'form' => $form->createView(),
         ));
     }

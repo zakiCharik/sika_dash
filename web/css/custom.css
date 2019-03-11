@@ -1,4 +1,12 @@
 
+
+
+
+
+.nav.child_menu>li>a, .nav.side-menu>li>a {
+    color: white !important;
+}
+/*---------------------------------------*/
 html , body{
 	
  height:100%;
@@ -144,7 +152,7 @@ html , body{
     padding: 0 0 4px 0
 }
 .left_col {
-    background: #2A3F54
+    background: #546e8c !important;
 }
 .nav-sm .container.body .col-md-3.left_col {
     min-height: 100%;
@@ -326,7 +334,7 @@ html , body{
 }
 .nav_menu {
     float: left;
-    background: #EDEDED;
+    background: #4ab5ad;
     border-bottom: 1px solid #D9DEE4;
     margin-bottom: 10px;
     width: 100%;

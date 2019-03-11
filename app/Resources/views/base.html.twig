@@ -28,7 +28,7 @@
         <link href="{{ asset('vendors/switchery/dist/switchery.min.css') }}" rel="stylesheet">
 
         <!-- Custom Theme Style -->
-        <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -39,8 +39,12 @@
                 {% block menuright %}
                     <div class="col-md-3 left_col">
                         <div class="left_col scroll-view">
-                            <div class="navbar nav_title" style="border: 0;">
-                                <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                            <div class="navbar nav_title" style="text-align: center;">
+                                <a href="index.html" class="site_title" style="padding: 0px;">
+                                  <img src="{{ asset('favicon.ico') }}" alt="..." class="img-circle" style="width: 37px;height: 37px;">
+
+                                  <span>Loyalty Reward</span>
+                                </a>
                             </div>
 
                             <div class="clearfix"></div>
@@ -82,14 +86,14 @@
                                     </li>
                                     <li><a><i class="fa fa-print"></i> Gestion des coupons<span class="fa fa-chevron-down"></span></a>
                                       <ul class="nav child_menu">
-                                        <li><a href="{{ path('scan_index') }}">Historique des scans</a></li>
-                                        <li><a href="{{ path('gift_index') }}">Historique des converstions</a></li>
+                                        <li><a href="{{ path('scan_new') }}">Historique des scans</a></li>
+                                        <li><a href="{{ path('operation_index_validate') }}">Historique des converstions</a></li>
                                       </ul>
                                     </li>
-                                    <li><a><i class="fa fa-gift"></i>Gestion de récompense<span class="fa fa-chevron-down"></span></a>
+                                    <li><a><i class="fa fa-gift"></i>Gestion récompenses<span class="fa fa-chevron-down"></span></a>
                                       <ul class="nav child_menu">
                                         <li><a href="{{ path('gift_new') }}">Valorisation des points</a></li>
-                                        <li><a href="{{ path('gift_index') }}">Gestion des converstions</a></li>
+                                        <li><a href="{{ path('operation_index') }}">Gestion des converstions</a></li>
                                       </ul>
                                     </li>
                                     <li><a><i class="fa fa-bar-chart-o"></i> Monitoring <span class="fa fa-chevron-down"></span></a>
@@ -332,7 +336,6 @@
                 <!-- /footer content -->
             </div>
         </div>
-        {% block javascripts %}{% endblock %}
         <!-- jQuery -->
         <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
         <!-- Bootstrap -->
@@ -378,6 +381,11 @@
         <!-- Custom Theme Scripts -->
         <script src="{{ asset('js/custom.min.js') }}"></script>     
         <!-- Application Scripts -->
-        <script src="{{ asset('js/app.js') }}"></script>        
+        <script src="{{ asset('js/app.js') }}"></script>    
+
+        {% block javascript %}
+
+
+        {% endblock %}
     </body>
 </html>

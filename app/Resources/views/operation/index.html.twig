@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <!-- Datatables -->
+    <link href=" {{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }} " rel="stylesheet">
+
+{% endblock %}
+{% block tiles %}{% endblock %}
+
+{% block body %}
+    <div class="">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>Gestion des conversions <small> Historique et demandes </small></h3>
+          </div>
+
+          <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Liste des demandes</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Settings 1</a>
+                              </li>
+                              <li><a href="#">Settings 2</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <p>Table des opération et demandes</p>
+
+                        <!-- start project list -->
+                        <table class="table table-striped projects table-bordered dataTable no-footer" id="dt_operation">
+                            <thead>
+                                <tr>
+                                  <th style="width: 1%">#Client</th>
+                                  <th style="width: 20%">Date Opération</th>
+                                  <th>Valeur </th>
+                                  <th>État de validation</th>
+                                  <th>Date de validation</th>
+                                  <th>Valider Par</th>
+                                  <th>Device utilisé</th>
+                                  <th style="width: 20%">#Valider</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for operation in operations %}
+
+                                    <tr>
+                                        <td>{{ operation.id }}</td>
+                                        <td>
+                                            <br />
+                                            <small>
+                                                {% if operation.createdTime %}{{ operation.createdTime|date('Y-m-d H:i:s') }}{% endif %}
+                                            </small>
+                                        </td>
+                                        <td>{{ operation.value }}</td>                                      
+                                        <td>{% if operation.etatValidation %}Yes{% else %}No{% endif %}</td>
+                                        <td>{% if operation.dateValidation %}{{ operation.dateValidation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>{{ operation.byValidation }}</td>
+                                        <td>{{ operation.fromDevice }}</td>
+
+                                        <td>
+                                            <a href="{{ path('operation_show', { 'id': operation.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Visualiser </a>
+                                            <a href="{{ path('operation_validate', { 'id': operation.id }) }}" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Valider </a>
+
+
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- end project list -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+  <!-- Datatables -->
+  <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }} "></script>
+  <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }} "></script>
+
+  <!-- initialize the datatable component -->
+  <script type="text/javascript">
+    $('#dt_operation').DataTable();
+  </script>
+
+
+{% endblock %}

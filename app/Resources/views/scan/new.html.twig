@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <!-- Datatables -->
+    <link href=" {{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }} " rel="stylesheet">
+
+{% endblock %}
+
 {% block tiles %}{% endblock %}
+
 {% block body %}
     <div class="">
         <div class="page-title">
@@ -97,7 +104,7 @@
                     <p>Table lots génerer</p>
 
                     <!-- start project list -->
-                    <table class="table table-striped projects">
+                    <table class="table table-striped projects dataTable" id="dt_scan">
                         <thead>
                             <tr>
                               <th style="width: 1%">#</th>
@@ -129,7 +136,6 @@
                                     <td>
                                         <a href="{{ path('scan_print', { 'id': scan.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Print </a>
 
-
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -144,12 +150,18 @@
     </div>
 
 
+{% endblock %}
 
+{% block javascript %}
 
+  <!-- Datatables -->
+  <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }} "></script>
+  <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }} "></script>
 
-
-
-
+  <!-- initialize the datatable component -->
+  <script type="text/javascript">
+    $('#dt_scan').DataTable();
+  </script>
 
 
 {% endblock %}

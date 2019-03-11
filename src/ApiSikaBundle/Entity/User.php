@@ -4,6 +4,7 @@ namespace ApiSikaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiSikaBundle\Entity\Client;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -91,10 +92,58 @@ class User
     protected $client;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Operation", mappedBy="clientId")
+     */
+    private $operations;
+
     public function __construct()
     {
+        $this->operations = new ArrayCollection();
         $this->createdTime = new \Datetime(); 
     }
+
+//-- Operation List
+
+    // Notez le singulier, on ajoute une seule catégorie à la fois
+    public function addOperation(Operation $operation)
+    {
+        // Ici, on utilise l'ArrayCollection vraiment comme un tableau
+        $this->operations[] = $operation;
+
+        return $this;
+    }
+
+    public function removeOperations(Operation $operation)
+    {
+        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+        $this->operations->removeElement($operation);
+    }
+
+    /**
+     * Set operations
+     *
+     * @param ArrayCollection $operations
+     *
+     * @return User
+     */
+    public function setOperations($operations)
+    {
+        $this->operations = $operations;
+
+        return $this;
+    }
+
+    /**
+     * Get operations
+     *
+     * @return ArrayCollection
+     */
+    public function getOperations()
+    {
+        return $this->operations;
+    }
+//-- operations List
 
     /**
      * Get id

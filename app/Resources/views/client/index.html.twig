@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <!-- Datatables -->
+    <link href=" {{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }} " rel="stylesheet">
+
+{% endblock %}
+
 {% block tiles %}{% endblock %}
 
 
@@ -51,7 +57,7 @@
                         <p>Table des clients avec leur scores éventuel</p>
 
                         <!-- start project list -->
-                        <table class="table table-striped projects">
+                        <table class="table table-striped projects table-bordered dataTable no-footer" id="dt_client">
                             <thead>
                                 <tr>
                                   <th style="width: 1%">#</th>
@@ -115,6 +121,20 @@
 
 
 
+
+
+{% endblock %}
+
+{% block javascript %}
+
+  <!-- Datatables -->
+  <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }} "></script>
+  <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }} "></script>
+
+  <!-- initialize the datatable component -->
+  <script type="text/javascript">
+    $('#dt_client').DataTable();
+  </script>
 
 
 {% endblock %}

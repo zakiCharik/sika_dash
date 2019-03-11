@@ -4,6 +4,7 @@ namespace ApiSikaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiSikaBundle\Entity\Scan;
+use ApiSikaBundle\Entity\Operation;
 use ApiSikaBundle\Entity\Gift;
 use ApiSikaBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -117,6 +118,11 @@ class Client
     private $scans;
 
     /**
+     * @ORM\OneToMany(targetEntity="Operation", mappedBy="clientId")
+     */
+    private $operations;
+
+    /**
      * @ORM\OneToMany(targetEntity="Gift", mappedBy="clientId")
      */
     private $gifts;
@@ -130,6 +136,7 @@ class Client
     {
         $this->scans = new ArrayCollection();
         $this->gifts = new ArrayCollection();
+        $this->operations = new ArrayCollection();
         $this->createdTime = new \Datetime(); 
     }
 //-- Gift List
@@ -173,6 +180,47 @@ class Client
         return $this->gifts;
     }
 //-- Gift List
+//-- Operation List
+
+    // Notez le singulier, on ajoute une seule catégorie à la fois
+    public function addOperation(Operation $operation)
+    {
+        // Ici, on utilise l'ArrayCollection vraiment comme un tableau
+        $this->operations[] = $operation;
+
+        return $this;
+    }
+
+    public function removeOperations(Operation $operation)
+    {
+        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+        $this->operations->removeElement($operation);
+    }
+
+    /**
+     * Set operations
+     *
+     * @param ArrayCollection $operations
+     *
+     * @return Client
+     */
+    public function setOperations($operations)
+    {
+        $this->operations = $operations;
+
+        return $this;
+    }
+
+    /**
+     * Get operations
+     *
+     * @return ArrayCollection
+     */
+    public function getOperations()
+    {
+        return $this->operations;
+    }
+//-- operations List
 
 //--- Scan List
 

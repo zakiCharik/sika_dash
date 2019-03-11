@@ -69,7 +69,7 @@ class Scan
     private $doc;
 
     /**
-     * @Vich\UploadableField(mapping="clients_images", fileNameProperty="doc")
+     * @Vich\UploadableField(mapping="scans_images", fileNameProperty="doc")
      * @var File
      */
     private $docFile;

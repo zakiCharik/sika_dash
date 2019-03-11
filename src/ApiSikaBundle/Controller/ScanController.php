@@ -184,10 +184,11 @@ class ScanController extends Controller
         $pdf->setPrintHeader(false);
      
         // Ajout page
+        $pdf->AddPage();
 
         // set style for barcode
         $style = array(
-            'border' => 2,
+            'border' => 1,
             'vpadding' => 'auto',
             'hpadding' => 'auto',
             'fgcolor' => array(0,0,0),
@@ -195,24 +196,32 @@ class ScanController extends Controller
             'module_width' => 1, // width of a single module in points
             'module_height' => 1 // height of a single module in points
         );
-            $pdf->AddPage();
-
-        for( $j = 1;$j < $scan->getQt()+1/4; $j++  ){
+        
+        $valueScan = 'SIKA;MOBILE;PRODUCTID;'.$scan->getCreatedTime()->format('d/m/Y').';'. $scan->getQrValue();
+        $count = 0;
+        $taille= $scan->getQt();
+        for( $j = 0;$j < ($taille/5); $j++  ){
             for( $i = 0;$i < 200; $i = $i + 40  ){
-                $pdf->write2DBarcode('SIKA;MOBILE;PRODUCTID;'.$scan->getCreatedTime()->format('d/m/Y').';'. $scan->getQrValue(), 'QRCODE,L',$i, $j*40, 40, 40, $style, 'N');                
-            }
+                if ($count < $taille) {
+                    $pdf->write2DBarcode($valueScan, 'QRCODE,L',$i, $j*40, 40, 40, $style, 'N');    
+                    $count++;
 
-        }        
+                }
+            }
+        }
+
+        // }        
         // $pdf->writeHTML($html, true, false, true, false, '');
         // Reset pointeur
-        // $pdf->lastPage();
+        $pdf->lastPage();
         //
         $response = new Response($pdf->Output('printGenerated.pdf'));
         //update the $scan object and generate the doc 
-        $scan->setDocFile($response);
+        $scan->setDocFile($pdf->Output('printGenerated.pdf'));
         $scan->setGenerationTime(new\Datetime());
-        $this->getDoctrine()->getManager()->flush();
-
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($scan);
+        $em->flush();
         $response->headers->set('Content-Type', 'application/pdf');
           
         return $response;
