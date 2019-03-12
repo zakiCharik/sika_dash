@@ -17,7 +17,11 @@ class OperationType extends AbstractType
         // ->add('createdTime')
         // ->add('modifiedTime')
         ->add('value')
-        ->add('clientId')
+        ->add('clientId' , EntityType::class, array(
+                'class' => 'ApiSikaBundle:Client',
+                'choices' => $Client->getUsers(),
+                'label' => 'Attribuer un utilisateur au projet : ',                
+                )) 
         ->add('etatValidation')
         // ->add('dateValidation')
         // ->add('byValidation')

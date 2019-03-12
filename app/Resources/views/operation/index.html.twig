@@ -72,8 +72,11 @@
                                 {% for operation in operations %}
 
                                     <tr>
-                                        <td>{% set client = operation.clientId %}{{ client }}
-                                        {{  operation.clientId  ~ ' -op'~  operation.id }}</td>
+                                        <td>{% set client = operation.clientId %}
+                                        {% if client != null %} 
+                                          {{  client.contactadmin  }} 
+                                        {% endif %} 
+                                          {{   ' -op'~  operation.id }}</td>
                                         <td>
                                             <br />
                                             <small>

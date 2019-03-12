@@ -58,17 +58,18 @@ class ClientController extends Controller
                     $this->renderView(
                         // app/Resources/views/Emails/registration.html.twig
                         'Emails/registration.html.twig',
-                        ['name' => $client->getContactadmin(),
-                        'user' => $client->getUser()]
+                        [
+                            'name' => $client->getContactadmin(),
+                            'user' => $client->getUser()
+                        ]
                     ),
                     'text/html'
                 )
             ;
 
-            // $mailer->send($message);
 
             // or, you can also fetch the mailer service this way
-            $this->get('mailer')->send($message);
+            $mailer->send($message);
             //persisting the client
 
             //persisting the data given by the user in  frist place to send the mail confirmation later
@@ -116,6 +117,8 @@ class ClientController extends Controller
     public function editAction(Request $request, Client $client)
     {
         $deleteForm = $this->createDeleteForm($client);
+
+
         $editForm = $this->createForm('ApiSikaBundle\Form\ClientType', $client);
         $editForm->handleRequest($request);
 

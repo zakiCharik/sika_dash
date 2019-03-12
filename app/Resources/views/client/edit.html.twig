@@ -1,13 +1,120 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Client edit</h1>
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Clients <small>Création </small></h3>
+        </div>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Client <small> Édition - <a href="{{ path('client_index') }}">Revenir à la liste</a></small></h2>
 
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="close-link">
+                                <i class="fa fa-close"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="clearfix"></div>                    
+                </div>        
+                <div class="x_content">
+                    {{ form_start(edit_form, {'method': 'POST',  'attr' : { 'class': 'form-horizontal form-label-left' } } ) }}
+
+                        <div class="form-group">
+                            {{ form_label(edit_form.displayName ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(edit_form.displayName) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(edit_form.displayName, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div > 
+                        <div class="form-group">
+                            {{ form_label(edit_form.contactadmin ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(edit_form.contactadmin) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(edit_form.contactadmin, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >
+                        <div class="form-group">
+                            {{ form_label(edit_form.compteclient ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(edit_form.compteclient) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(edit_form.compteclient, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >     
+                        <div class="form-group">
+                            {{ form_label(edit_form.tel ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(edit_form.tel) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(edit_form.tel, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >   
+                        <div class="form-group">
+                            {{ form_label(edit_form.email ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(edit_form.email) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(edit_form.email, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >     
+                        <div class="form-group">
+                            {{ form_label(edit_form.picture ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(edit_form.picture) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(edit_form.picture, { 'attr': {'class': 'file '}} ) }}
+                            </div>        
+                        </div >
+                        
+                        <hr />
+                        <h2>Utilisateur </h2>
+
+                        <div class="form-group">
+                            {{ form_label(edit_form.user.login ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(edit_form.user.login) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(edit_form.user.login, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >    
+                        <div class="form-group">
+                            {{ form_label(edit_form.user.password ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(edit_form.user.password) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(edit_form.user.password, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>        
+                        </div >    
+                        
+                        <input type="submit" value="Create" class=" btn btn-success" />
+                    {{ form_end(edit_form) }}
+
+                </div>        
+            </div>        
+        </div>
+    </div>
     <ul>
         <li>
             <a href="{{ path('client_index') }}">Back to the list</a>
