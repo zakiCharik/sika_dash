@@ -1,5 +1,60 @@
 {% extends 'base.html.twig' %}
 
+{% block tiles %}
+  <!-- top tiles -->
+  <div class="row tile_count">
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+        <div class="count">{{ users|length }}</div>
+        <span class="count_bottom"><i class="green">4% </i> {{"now"|date("m/d/Y") }}</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Total Clients</span>
+        <div class="count">{{ clients|length }}</div>
+        <span class="count_bottom"><i class="green">4% </i> {{"now"|date("m/d/Y") }}</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Total Conversion</span>
+        {% set cumPoint  = 0 %}
+        {% for op in operations %}
+          {% set cumPoint = cumPoint + op.value %}
+        {% endfor %}
+        <div class="count green">{{cumPoint}} Pts</div>
+        <span class="count_bottom">
+          {# pourcentage de conversion ou taut de conversion #}
+          {% set cumulConversion  = 0 %}
+          {% for scan in scans %}
+            {% set cumulConversion = cumulConversion + (scan.qt * scan.qrValue ) %}
+          {% endfor %}
+          {% set totConervesion = ((cumPoint / cumulConversion ) * 100)|round(1, 'floor') %}
+          <i class="green"><i class="fa fa-sort-asc"></i>{{ totConervesion  }} % </i> 
+          {{"now"|date("m/d/Y") }}
+        </span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Total de Générations</span>     
+        <div class="count">{{cumulConversion}} Pts</div>
+        <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>{{ totConervesion  }}  %</i> {{"now"|date("m/d/Y") }}</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Taux de conversion</span>
+        <div class="count">{{ totConervesion  }}  %</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>4% </i> From last Week</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Total validé</span>
+        {% set cumPointValide  = 0 %}
+        {% for op in operations %}
+          {% if op.etatValidation %}
+            {% set cumPointValide = cumPointValide + op.value %}
+          {% endif %}
+        {% endfor %}        
+        <div class="count">{{cumPointValide }}</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+      </div>
+  </div>
+  <!-- /top tiles -->
+{% endblock %}
 
 {% block body %}
 
@@ -8,7 +63,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Recent Activities <small>Sessions</small></h2>
+                  <h2>Activitées récentes <small>Sessions</small></h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -30,62 +85,83 @@
                   <div class="dashboard-widget-content">
 
                     <ul class="list-unstyled timeline widget">
+                    {% for operation in operations %}
+                      
                       <li>
+                        
                         <div class="block">
                           <div class="block_content">
                             <h2 class="title">
-                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                          </h2>
+                              <a>Scan Opération</a>
+                            </h2>
                             <div class="byline">
-                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                              {% set myClient = operation.clientId %}
+
+                              {% if myClient != null %}
+                                <span>
+                                  {{  operation.createdTime }} 
+                                </span> 
+                                by 
+                                <a href="{{ path('client_show',{ 'id': myClient.id }) }}">
+                                  {{ myClient.contactadmin }}
+                                </a>
+                              {% else %}
+                                <span>
+                                  {{  operation.createdTime }} 
+                                </span> 
+                                by 
+                                <a href="">
+                                  --
+                                </a>                              
+                              {% endif %}
+                            
                             </div>
-                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            <p class="excerpt">Point ajoutés <bold style="font-weight: 800;color: black;">{{operation.value}} Pts</bold>  via {{operation.fromDevice}} <a>... Détail</a>
                             </p>
                           </div>
                         </div>
+
                       </li>
+                    {% endfor%}
+                    {% for scan in scans %}
+                      
                       <li>
+                        
                         <div class="block">
                           <div class="block_content">
                             <h2 class="title">
-                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                          </h2>
+                              <a>Génération de coupons</a>
+                            </h2>
                             <div class="byline">
-                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                              {% set myClient = scan.clientId %}
+
+                              {% if myClient != null %}
+                                <span>
+                                  {% if scan.createdTime %}{{ scan.createdTime|date("m/d/Y") }}{% endif %}
+                                </span> 
+                                by 
+                                <a href="{{ path('client_show',{ 'id': myClient.id }) }}">
+                                  {{ myClient.contactadmin }}
+                                </a>
+                              {% else %}
+                                <span>
+                                  {% if scan.createdTime %}{{ scan.createdTime|date("m/d/Y") }}{% endif %}
+                                </span> 
+                                by 
+                                <a href="">
+                                  --
+                                </a>                              
+                              {% endif %}
+                            
                             </div>
-                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            <p class="excerpt">Coupons généré  de valeur<bold style="font-weight: 800;color: black;">{{scan.score}} Pts</bold>  avec une quantité de  {{scan.qt}} <a>... Détail</a>
                             </p>
                           </div>
                         </div>
+
                       </li>
-                      <li>
-                        <div class="block">
-                          <div class="block_content">
-                            <h2 class="title">
-                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                          </h2>
-                            <div class="byline">
-                              <span>13 hours ago</span> by <a>Jane Smith</a>
-                            </div>
-                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="block">
-                          <div class="block_content">
-                            <h2 class="title">
-                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                          </h2>
-                            <div class="byline">
-                              <span>13 hours ago</span> by <a>Jane Smith</a>
-                            </div>
-                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                            </p>
-                          </div>
-                        </div>
-                      </li>
+                    {% endfor%}
+
                     </ul>
                   </div>
                 </div>

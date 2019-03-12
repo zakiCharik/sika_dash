@@ -17,7 +17,7 @@ class OperationType extends AbstractType
         // ->add('createdTime')
         // ->add('modifiedTime')
         ->add('value')
-        // ->add('clientId')
+        ->add('clientId')
         ->add('etatValidation')
         // ->add('dateValidation')
         // ->add('byValidation')

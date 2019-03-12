@@ -113,17 +113,17 @@ class Client
     private $lastConnected;
 
     /**
-     * @ORM\OneToMany(targetEntity="Scan", mappedBy="clientId")
+     * @ORM\OneToMany(targetEntity="Scan", mappedBy="clientId", fetch="LAZY")
      */
     private $scans;
 
     /**
-     * @ORM\OneToMany(targetEntity="Operation", mappedBy="clientId")
+     * @ORM\OneToMany(targetEntity="Operation", mappedBy="clientId", fetch="LAZY")
      */
     private $operations;
 
     /**
-     * @ORM\OneToMany(targetEntity="Gift", mappedBy="clientId")
+     * @ORM\OneToMany(targetEntity="Gift", mappedBy="clientId", fetch="LAZY")
      */
     private $gifts;
 
@@ -594,5 +594,7 @@ class Client
     {
         return $this->lastConnected;
     }
+
+
 }
 
