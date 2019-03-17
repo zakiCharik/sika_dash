@@ -5,6 +5,8 @@ namespace ApiSikaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use ApiSikaBundle\Entity\Client;
 
 class OperationType extends AbstractType
 {
@@ -18,9 +20,10 @@ class OperationType extends AbstractType
         // ->add('modifiedTime')
         ->add('value')
         ->add('clientId' , EntityType::class, array(
-                'class' => 'ApiSikaBundle:Client',
-                'choices' => $Client->getUsers(),
-                'label' => 'Attribuer un utilisateur au projet : ',                
+                'class' => Client::class,
+                // uses the User.username property as the visible option string
+                'choice_label' => 'contactAdmin',
+                'label' => 'Attribuer l\'opération a un client  : ',                
                 )) 
         ->add('etatValidation')
         // ->add('dateValidation')

@@ -128,7 +128,7 @@ class Client
     private $gifts;
 
     /**
-    * @ORM\OneToOne(targetEntity=Client::class, cascade={"persist", "remove"})
+    * @ORM\OneToOne(targetEntity=Client::class)
     */
     protected $user;
 

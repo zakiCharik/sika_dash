@@ -27,7 +27,9 @@ function randString(id){
 
 //---- Function on click generate password and append it in the input zone
 $('#_to-generate-pass').on('click',function(){
-	var input = $('#_generated-password');
+	// var input = $('#_generated-password');
+	var input = $('#apisikabundle_client_user_password');
+	console.log(input);
 	input.val(randString($(this)));
 });
 
@@ -36,41 +38,24 @@ $('input#apisikabundle_client_email').keyup(function(){
 	//first part is the email input
 	var inputEm = $("input#apisikabundle_client_email");
 	console.log(inputEm[0].value);
-	var input = $('#_generated-email');
+	var input = $('#apisikabundle_client_user_login');
 	input.val(inputEm[0].value);
 	// and then 
-	var input = $('#_generated-password');
+	var input = $('#apisikabundle_client_user_password');
 	input.val(randString($('#_to-generate-pass')));
-	// call ajax to save user
-	var inputPass = $('#_generated-password').val();
-	var inputEmail = $('#_generated-email').val();
-	$.ajax({
-		url: $('#_save-user').attr('data-path'),
-		method:'POST',
-		data: {
-			email: inputEmail,
-			password: inputPass,
-		},
-		success: function(data){
-
-		},
-		error: function(err){
-			
-		},
-	});
 
 });
 
 //---- UI design Change the icon and the type of the input to show password
-$('#_generated-password-change').on('click',function(){
-	var input = $('#_generated-password');
-	if (input.attr('type') == 'password' ){
-		input.attr('type', 'text');
-		$(this).children().attr('class','fa fa-eye');
-	}else{
-		input.attr('type', 'password');
-		$(this).children().attr('class','fa fa-eye-slash');		
-	}
-});
+// $('#_generated-password-change').on('click',function(){
+// 	var input = $('#apisikabundle_client_user_password');
+// 	if (input.attr('type') == 'password' ){
+// 		input.attr('type', 'text');
+// 		$(this).children().attr('class','fa fa-eye');
+// 	}else{
+// 		input.attr('type', 'password');
+// 		$(this).children().attr('class','fa fa-eye-slash');		
+// 	}
+// });
 
 //---- Async call to save user and get the id form last persist

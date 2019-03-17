@@ -60,6 +60,13 @@ class Scan
      */
     private $qrValue;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="identifier", type="string", length=255 ,nullable=true)
+     */
+    private $identifier;
+
 
     /**
      * @var string
@@ -125,6 +132,30 @@ class Scan
     public function getQt()
     {
         return $this->qt;
+    }
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     *
+     * @return Scan
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
     }
 
     /**

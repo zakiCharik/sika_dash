@@ -5,7 +5,8 @@ namespace ApiSikaBundle\Controller;
 use ApiSikaBundle\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\Routing\Annotation\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Client controller.
@@ -25,9 +26,11 @@ class ClientController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $clients = $em->getRepository('ApiSikaBundle:Client')->findAll();
+        $deleteForm = $this->createDeleteForm($clients[0]);
 
         return $this->render('client/index.html.twig', array(
             'clients' => $clients,
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -69,7 +72,8 @@ class ClientController extends Controller
 
 
             // or, you can also fetch the mailer service this way
-            $mailer->send($message);
+            // $mailer->send($message);
+            $this->get('mailer')->send($message);
             //persisting the client
 
             //persisting the data given by the user in  frist place to send the mail confirmation later
@@ -119,7 +123,7 @@ class ClientController extends Controller
         $deleteForm = $this->createDeleteForm($client);
 
 
-        $editForm = $this->createForm('ApiSikaBundle\Form\ClientType', $client);
+        $editForm = $this->createForm('ApiSikaBundle\Form\ClienteditType', $client);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

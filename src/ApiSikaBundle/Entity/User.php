@@ -4,6 +4,7 @@ namespace ApiSikaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiSikaBundle\Entity\Client;
+use ApiSikaBundle\Entity\Operation;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -91,11 +92,24 @@ class User
     */
     protected $client;
 
-
     /**
-     * @ORM\OneToMany(targetEntity="Operation", mappedBy="clientId")
+     * @ORM\OneToMany(targetEntity="Operation", mappedBy="byValidation")
      */
     private $operations;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
 
     public function __construct()
     {

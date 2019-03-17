@@ -34,7 +34,7 @@ class UserController extends Controller
     /**
      * Creates a new user entity.
      *
-     * @Route("/new", name="user_new")
+     * @Route("/signup", name="signup")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)

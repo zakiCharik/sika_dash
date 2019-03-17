@@ -177,6 +177,12 @@ class OperationController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $operation->setDateValidation(new \Datetime());
+            // returns User object or null if not authenticated
+            $user = $this->security->getUser();            
+            $operation->setByValidation($user);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('operation_edit', array('id' => $operation->getId()));

@@ -28,7 +28,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Clien info & Report <small>Activity report - <a href="{{ path('client_index') }}">Revenir à la liste</a></small></h2>
+                    <h2>Informations Client & Reporting<small> <a href="{{ path('client_index') }}">Revenir à la liste</a></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -74,7 +74,7 @@
                         </li>
                       </ul>
 
-                      <a class="btn btn-success" href="{{ path('client_edit', { 'id': client.id }) }}"><i class="fa fa-edit m-right-xs"></i> Edit Profile</a>
+                      <a class="btn btn-success" href="{{ path('client_edit', { 'id': client.id }) }}"><i class="fa fa-edit m-right-xs"></i> Editer Profil</a>
                       <br />
 
                       <br />
@@ -89,7 +89,7 @@
 
                       <div class="profile_title">
                         <div class="col-md-6">
-                          <h2>User Activity Report</h2>
+                          <h2>Activité client</h2>
                         </div>
                         <div class="col-md-6">
                           <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
@@ -104,11 +104,11 @@
 
                       <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                          <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Recent Activity</a>
+                          <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Historique d'activité</a>
                           </li>
-                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Projects Worked on</a>
+                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Points cumulés</a>
                           </li>
-                          <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile Utilisateur</a>
+                          <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profil utilisateur</a>
                           </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -205,7 +205,7 @@
                                 <p>Profil crée le : {% if client.createdTime %}{{ client.createdTime|date('Y-m-d H:i:s') }}{% endif %} </p>
                                 <p>Dernière modification le : {% if client.modifiedTime %}{{ client.modifiedTime|date('Y-m-d H:i:s') }}{% endif %} </p>
                                 <p>Score Actuel : {{ client.currentScore }} <bold>Pts</bold></p>
-                                <p>Dernière fois connecté : {% if client.lastConnected %}{{ client.lastConnected|date('Y-m-d H:i:s') }}{% endif %}</p>
+                                <p>Dernière connexion: {% if client.lastConnected %}{{ client.lastConnected|date('Y-m-d H:i:s') }}{% endif %}</p>
 
                             </div>
                         </div>

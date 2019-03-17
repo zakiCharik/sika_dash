@@ -10,23 +10,7 @@
 
 
 {% block body %}
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Clients <small>Listing </small></h3>
-              </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
             
             <div class="clearfix"></div>
 
@@ -34,7 +18,7 @@
               <div class="col-md-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Compte Clients</h2>
+                        <h2>Comptes clients</h2>
                         <ul class="nav navbar-right panel_toolbox">
                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                           </li>
@@ -54,7 +38,7 @@
                     </div>
                     <div class="x_content">
 
-                        <p>Table des clients avec leur scores éventuel</p>
+                        <p>Listing exhaustif de la base de données clients.</p>
 
                         <!-- start project list -->
                         <table class="table table-striped projects table-bordered dataTable no-footer" id="dt_client">
@@ -65,16 +49,16 @@
                                   <th>Tel</th>
                                   <th>Email</th>
                                   <th>Profil</th>
-                                  <th>Progression de score</th>
+                                  <th class="">Score</th>
                                   <th>Status</th>
-                                  <th style="width: 20%">#Edit</th>
+                                  <th style="width: 20%">#Editer</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for client in clients %}
 
                                     <tr>
-                                      <td>{{ client.userId }}</td>
+                                      <td>{{ client.compteclient }}</td>
                                       <td>
                                         <a>{{ client.displayName }}</a>
                                         <br />
@@ -87,23 +71,23 @@
                                       <td>
                                         <ul class="list-inline">
                                           <li>
-                                            <img src="{{ asset('images/user.png') }}" class="avatar" alt="Avatar">
+                                            <img src="{{ asset('uploads/images/clients/'~client.picture) }}" class="avatar" alt="Avatar">
                                           </li>
                                         </ul>
                                       </td>
-                                      <td class="project_progress">
+                                      <td class=" project_progress">
                                         <div class="progress progress_sm">
-                                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="5{{ client.id }}"></div>
+                                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{ client.currentScore }}"></div>
                                         </div>
-                                        <small>5{{ client.id }}% Complete</small>
+                                        <small>{{ client.currentScore }}</small>
                                       </td>
                                       <td>
-                                        <button type="button" class="btn btn-success btn-xs">Activé</button>
+                                        <button type="button" class="btn btn-success btn-xs">Actif</button>
                                       </td>
                                       <td>
-                                        <a href="{{ path('client_show', { 'id': client.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                                        <a href="{{ path('client_edit', { 'id': client.id }) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                        <a href="{{ path('client_show', { 'id': client.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> Voir </a>
+                                        <a href="{{ path('client_edit', { 'id': client.id }) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editer </a>
+                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Supprimer </a>
                                       </td>
                                     </tr>
                                 {% endfor %}

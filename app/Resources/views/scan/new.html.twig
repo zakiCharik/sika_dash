@@ -14,17 +14,6 @@
           <div class="title_left">
             <h3>Génération des coupons <small>Historique </small></h3>
           </div>
-
-          <div class="title_right">
-            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">Go!</button>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
         
         <div class="clearfix"></div>
@@ -52,7 +41,7 @@
                 </div>
                 <div class="x_content">
                       {{ form_start(form, {'method': 'POST',  'attr' : { 'class': 'form-horizontal form-label-left' } } ) }}
-
+                      <div class="row">
                         <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12 ">
                             {{ form_label(form.qt ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
                             {{ form_errors(form.qt) }}
@@ -66,7 +55,19 @@
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 {{ form_widget(form.qrValue, { 'attr': {'class': 'form-control '}} ) }}
                             </div>
+                        </div>                        
+                      </div>
+                      <div class="row">
+
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12 col-sm-12 ">
+                            {{ form_label(form.identifier ,null, {'label_attr' : { 'class': 'control-label col-md-3 col-sm-3 col-xs-12' } }) }}
+                            {{ form_errors(form.identifier) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(form.identifier, { 'attr': {'class': 'form-control '}} ) }}
+                            </div>
                         </div>
+                      </div>
+
 
                         <input type="submit" value="Génerer" class=" btn btn-success" />
                     {{ form_end(form) }}
@@ -101,7 +102,7 @@
                 </div>
                 <div class="x_content">
 
-                    <p>Table lots génerer</p>
+                    <p>Table des lots génerés</p>
 
                     <!-- start project list -->
                     <table class="table table-striped projects dataTable" id="dt_scan">
@@ -109,10 +110,10 @@
                             <tr>
                               <th style="width: 1%">#</th>
                               <th style="width: 20%">Date de création</th>
-                              <th>Nombre des coupons</th>
+                              <th>Nombre de coupons</th>
                               <th>Valeur des coupons</th>
-                              <th>Date de génération</th>
-                              <th style="width: 20%">#Edit</th>
+                              <th>Lot généré par</th>
+                              <th style="width: 20%">#Edition</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,7 +122,7 @@
                                 <tr>
                                     <td>{{ scan.id }}</td>
                                     <td>
-                                        <a>{{ scan.clientId }}</a>
+                                        <a>{{ scan.identifier }}</a>
                                         <br />
                                         <small>
                                             {% if scan.createdTime %}{{ scan.createdTime|date('Y-m-d H:i:s') }}{% endif %}
@@ -134,8 +135,9 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ path('scan_print', { 'id': scan.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Print </a>
+                                        <a href="{{ path('scan_print', { 'id': scan.id }) }}" target="_blank" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Imprimer </a>
 
+                                        <a href="{{ path('scan_delete_on', { 'id': scan.id }) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer </a>
                                     </td>
                                 </tr>
                             {% endfor %}

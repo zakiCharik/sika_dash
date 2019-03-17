@@ -85,7 +85,7 @@
                                         </td>
                                         <td>{{ operation.value }}</td>                                      
                                         <td>{% if operation.etatValidation %}Yes{% else %}No{% endif %}</td>
-                                        <td>{% if operation.dateValidation %}{{ operation.dateValidation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>{% if operation.dateValidation %}{{ operation.dateValidation }}{% endif %}</td>
                                         <td>{{ operation.byValidation }}</td>
                                         <td>{{ operation.fromDevice }}</td>
 

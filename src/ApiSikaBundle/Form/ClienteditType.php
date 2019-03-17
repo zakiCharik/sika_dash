@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use ApiSikaBundle\Form\UserType;
 
 
-class ClientType extends AbstractType
+class ClienteditType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -20,7 +20,7 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('user', UserType::class)
+        // ->add('user', UserType::class)
         // ->add('currentScore')
         ->add('displayName',TextType::class, [
             'label' => 'Nom de société'])
@@ -28,10 +28,10 @@ class ClientType extends AbstractType
             'label' => 'Contact Administratif'])
         ->add('compteclient',TextType::class, [
             'label' => 'ID'])
-        ->add('picture',FileType::class, [
-            'label' => 'Uploader un fichier ',
-            'attr' => ['class' => 'file','required'=>"required"],
-        ])
+        // ->add('picture',FileType::class, [
+        //     'label' => 'Uploader un fichier ',
+        //     'attr' => ['class' => 'file','required'=>"required"],
+        // ])
         ->add('tel',TelType::class, [
             'label' => 'Téléphone ',
             'attr' => ['class' => 'form-control','required'=>"required", 'data-inputmask'=> "'mask' : '(999) 999-999-999'"],

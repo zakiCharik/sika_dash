@@ -62,12 +62,8 @@ class ScanController extends Controller
             $em->persist($scan);
             $em->flush();
 
-            return $this->render('scan_new', array(
-                'scans' => $scans,
-                'scan' => $scan,
-                'qr' => '-',
-                'form' => $form->createView(),
-            ));
+
+            return $this->redirectToRoute('scan_new');
         }
 
         return $this->render('scan/new.html.twig', array(
@@ -140,6 +136,22 @@ class ScanController extends Controller
     }
 
     /**
+     * Deletes a scan entity.
+     *
+     * @Route("/{id}/delete", name="scan_delete_on")
+     * @Method("GET")
+     */
+    public function deleteOnAction(Request $request, Scan $scan)
+    {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($scan);
+            $em->flush();
+
+        return $this->redirectToRoute('scan_new');
+    }
+
+    /**
      * Creates a form to delete a scan entity.
      *
      * @param Scan $scan The scan entity
@@ -188,9 +200,9 @@ class ScanController extends Controller
 
         // set style for barcode
         $style = array(
-            'border' => 1,
-            'vpadding' => 'auto',
-            'hpadding' => 'auto',
+            'border' => 2,
+            'vpadding' => '10',
+            'hpadding' => '10',
             'fgcolor' => array(0,0,0),
             'bgcolor' => false, //array(255,255,255)
             'module_width' => 1, // width of a single module in points

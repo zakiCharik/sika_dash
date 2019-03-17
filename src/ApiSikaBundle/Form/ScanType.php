@@ -22,7 +22,11 @@ class ScanType extends AbstractType
         // ->add('createdTime')
         // ->add('generationTime')
         ->add('qrValue',null, [
-            'label' => 'Valeur du coupons',
+            'label' => 'Valeur du coupon',
+            'attr' => ['class' => 'form-control','required'=>"required"],
+        ])
+        ->add('identifier',null, [
+            'label' => 'Identification du lot',
             'attr' => ['class' => 'form-control','required'=>"required"],
         ])
         // ->add('clientId')

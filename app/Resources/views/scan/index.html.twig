@@ -88,8 +88,9 @@
 
                                     <td>
                                         <a href="{{ path('scan_edit', { 'id': scan.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Print </a>
-
-
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('scan_delete_on', { 'id': scan.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Supprimer </a>
                                     </td>
                                 </tr>
                             {% endfor %}

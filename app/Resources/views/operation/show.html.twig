@@ -1,60 +1,110 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Operation</h1>
+        <!-- page content -->
+        <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Client</h3>
+              </div>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ operation.id }}</td>
-            </tr>
-            <tr>
-                <th>Createdtime</th>
-                <td>{% if operation.createdTime %}{{ operation.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Modifiedtime</th>
-                <td>{% if operation.modifiedTime %}{{ operation.modifiedTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Value</th>
-                <td>{{ operation.value }}</td>
-            </tr>
-            <tr>
-                <th>Clientid</th>
-                <td>{{ operation.clientId }}</td>
-            </tr>
-            <tr>
-                <th>Etatvalidation</th>
-                <td>{% if operation.etatValidation %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Datevalidation</th>
-                <td>{% if operation.dateValidation %}{{ operation.dateValidation|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Byvalidation</th>
-                <td>{{ operation.byValidation }}</td>
-            </tr>
-            <tr>
-                <th>Fromdevice</th>
-                <td>{{ operation.fromDevice }}</td>
-            </tr>
-        </tbody>
-    </table>
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="clearfix"></div>
 
-    <ul>
-        <li>
-            <a href="{{ path('operation_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('operation_edit', { 'id': operation.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        
+                        <h2>Détail de l'opération <small> report - <a href="{{ path('operation_index') }}">Revenir à la liste</a></small></h2>
+                        <div class="clearfix"></div>
+
+                      </div>
+                      <div class="x_content">
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Opération Identifiant</th>
+                                        <td>{{ operation.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date de création</th>
+                                        <td>{% if operation.createdTime %}{{ operation.createdTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date de modification</th>
+                                        <td>{% if operation.modifiedTime %}{{ operation.modifiedTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Valeur de l'opération</th>
+                                        <td>{{ operation.value }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Client Information</th>
+                                        {% if (operation.clientId != null ) %}
+                                            {% set myclient =  operation.clientId%}
+                                            <td><a  href="{{ path('client_show',{ 'id': myclient.id }) }}">{{ myclient.displayName }} </a>   -  {{ myclient.contactadmin }}</td>
+                                        {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <th>Etat de Validation</th>
+                                        <td>
+                                            {% if operation.etatValidation %}
+                                                <span class="label label-sucess">Yes</span>
+                                            {% else %}
+                                                <span class="label label-warning">No</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date de validation</th>
+                                        <td>{% if operation.dateValidation %}{{ operation.dateValidation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Utilisateur - Validation</th>
+                                        {% if (operation.byValidation != null ) %}
+                                            {% set myuser =  operation.byValidation%}
+                                            <td><a  href="{{ path('user_show',{ 'id': myclient.id }) }}">{{ myuser.username }} </a>   </td>
+                                        {% endif %}                                        
+                                        <td>{{ operation.byValidation }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Opération via :</th>
+                                        <td>{{ operation.fromDevice }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <ul>
+                                <li>
+                                    <a href="{{ path('operation_index') }}">Back to the list</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('operation_edit', { 'id': operation.id }) }}">Edit</a>
+                                </li>
+                                <li>
+                                    {{ form_start(delete_form) }}
+                                        <input type="submit" value="Delete">
+                                    {{ form_end(delete_form) }}
+                                </li>
+                            </ul>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 {% endblock %}

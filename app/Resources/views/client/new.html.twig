@@ -108,6 +108,9 @@
                                 {{ form_widget(form.user.password, { 'attr': {'class': 'form-control '}} ) }}
                             </div>        
                         </div >    
+                        <button type="button" class="btn btn-primary btn-xs" id="_to-generate-pass" data-size="32" data-character-set="a-z,A-Z,0-9,#">
+                            <i class="fa fa-user"> </i> Générer un password
+                        </button>
                         
                         <input type="submit" value="Create" class=" btn btn-success" />
                     {{ form_end(form) }}
@@ -124,27 +127,12 @@
                         <h4 class="brief"><i>Génération des accès</i></h4>
                         <div class="left col-xs-12">
 
-                            <p><i class="fa fa-info-circle"></i>   Pour générer les accès pour un utilisateur, il suffit d'entrer l'email dans la création de client et ensuite passer à la génération sans encore valider le client. Afin d'affecter un nom d'utilisateur et password à ce client.</p>
+                            <p><i class="fa fa-info-circle"></i>   Pour générer les accès pour un utilisateur, il suffit d'entrer l'email dans la création de client afin d'affecter les accès a ce client. Après validation un email sera envoyé à l'addresse donnée contenant les information d'accès.  </p>
                             <br />
-                            <div class="form-horizontal form-label-left input_mask">
-                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input type="email" class="form-control has-feedback-right" id="_generated-email" placeholder="Email" disabled>
-                                    <span class="fa fa-user form-control-feedback " aria-hidden="true"></span>
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <input type="password" id="_generated-password" class="form-control has-feedback-right"  placeholder="Mot de passe" disabled>
-                                    <span class="fa fa-lock form-control-feedback " aria-hidden="true"></span>
-                                </div>  
-                                <button id="_generated-password-change" >
-                                    <span class="fa fa-eye-slash"></span>
-                                </button>                                 
-                            </div>
                         </div>
                       </div>
                     <div class="col-xs-12 bottom text-right">
-                        <button type="button" class="btn btn-primary btn-xs" id="_to-generate-pass" data-size="32" data-character-set="a-z,A-Z,0-9,#">
-                            <i class="fa fa-user"> </i> Générer un password
-                        </button>
+
                     </div>
                 </div>
             </div>
